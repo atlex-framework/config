@@ -366,4 +366,6 @@ For complete documentation, visit [https://atlex.dev/guide/config](https://atlex
 
 ## License
 
-MIT
+## MIT
+
+Part of [Atlex](https://atlex.dev) — A modern framework for Node.js.

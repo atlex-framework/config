@@ -11,8 +11,19 @@
   "keywords": [
     "atlex",
     "config",
-    "typescript",
-    "env"
+    "configuration",
+    "env",
+    "dotenv",
+    "environment-variables",
+    "type-safe-config",
+    "dot-notation",
+    "app-config",
+    "config-management",
+    "laravel-config",
+    "laravel-alternative",
+    "nodejs",
+    "javascript",
+    "typescript"
   ],
   "engines": {
     "node": ">=20"
