@@ -1,6 +1,6 @@
 {
   "name": "@atlex/config",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Typed configuration and environment loading for Atlex",
   "type": "module",
   "license": "MIT",
