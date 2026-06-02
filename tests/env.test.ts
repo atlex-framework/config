@@ -65,4 +65,18 @@ describe('env()', () => {
       rmSync(dir, { recursive: true, force: true })
     }
   })
+
+  it('loadEnv does not override variables already set by the host', () => {
+    const dir = join(tmpdir(), `atlex-env-${Date.now()}`)
+    mkdirSync(dir, { recursive: true })
+    try {
+      process.env['ATLEX_ENV_REDIS'] = 'redis://redis:6379'
+      writeFileSync(join(dir, '.env'), 'ATLEX_ENV_REDIS=redis://localhost:6380\n', 'utf8')
+      loadEnv(dir)
+      expect(process.env['ATLEX_ENV_REDIS']).toBe('redis://redis:6379')
+    } finally {
+      delete process.env['ATLEX_ENV_REDIS']
+      rmSync(dir, { recursive: true, force: true })
+    }
+  })
 })

@@ -16,11 +16,11 @@ export type EnvsEntry =
   | typeof Number
   | typeof Boolean
 
-function loadEnvFile(absolutePath: string): void {
+function loadEnvFile(absolutePath: string, override: boolean): void {
   if (!existsSync(absolutePath)) {
     return
   }
-  dotenvConfig({ path: absolutePath, override: true })
+  dotenvConfig({ path: absolutePath, override })
 }
 
 /**
@@ -31,12 +31,14 @@ function loadEnvFile(absolutePath: string): void {
  * @param basePath - Directory containing env files (default: `process.cwd()`).
  */
 export function loadEnv(basePath: string = process.cwd()): void {
-  loadEnvFile(join(basePath, '.env'))
-  loadEnvFile(join(basePath, '.env.local'))
+  // Keep variables already set by Docker Compose, CI, or the shell (12-factor).
+  loadEnvFile(join(basePath, '.env'), false)
+  // Later files still override earlier dotenv files for local overrides.
+  loadEnvFile(join(basePath, '.env.local'), true)
   const envName = process.env.APP_ENV?.trim()
   if (envName !== undefined && envName.length > 0) {
-    loadEnvFile(join(basePath, `.env.${envName}`))
-    loadEnvFile(join(basePath, `.env.${envName}.local`))
+    loadEnvFile(join(basePath, `.env.${envName}`), true)
+    loadEnvFile(join(basePath, `.env.${envName}.local`), true)
   }
 }
 
